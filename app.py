@@ -4,6 +4,11 @@ from flask import Flask
 from flask import render_template
 from flaskext.mysql import MySQL
 
+
+import numpy as np # importo esto pero de prueba.  ##### BORRAR ###
+
+
+
 app = Flask(__name__) #instanciamos flask
 mysql = MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
@@ -26,3 +31,5 @@ def index():
 
 if __name__=='__main__':
     app.run(debug=True)
+
+#ESTOY MODIFICANDO ALGO QUE NO SE A DONDE VA
