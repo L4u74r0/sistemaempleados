@@ -4,6 +4,7 @@ from flask import Flask
 from flask import render_template, request
 from flaskext.mysql import MySQL
 from pymysql import cursors
+from datetime import datetime
 
 app = Flask(__name__) #instanciamos flask
 mysql = MySQL()
@@ -36,14 +37,24 @@ def storage():
    _Nombre=request.form['txtNombre']
    _Correo=request.form['txtCorreo']
    _Foto=request.files['txtFoto'] 
+
+
+   now = datetime.now()
+   tiempo = now.strftime("%Y%H%M%S")
+
+   if _Foto.filename!='':
+       nuevoNombreFoto=tiempo+_Foto.filename
+       _Foto.save("uploads/"+nuevoNombreFoto)
+
    sql = "INSERT INTO `empleados` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL,%s,%s,%s);"
-   datos=(_Nombre, _Correo, _Foto.filename)
+   datos=(_Nombre, _Correo, nuevoNombreFoto)
 
    conn=mysql.connect()
    cursor=conn.cursor()
    cursor.execute(sql, datos)
    conn.commit()
    return render_template('empleados/index.html')
+
 
 
 
