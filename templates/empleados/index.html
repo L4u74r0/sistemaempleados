@@ -1,3 +1,10 @@
+{% include 'header.html' %}
+<br>
+<a href="{{url_for('create')}}" class="btn btn-success">
+    ingresar empleado
+</a>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,12 +28,14 @@
         {% for empleado in empleados %}
         <tr>
             <td>{{empleado[0]}}</td>
+            <td>
+                <img class="img.thumbnail" width='100' src="uploads/{{empleado[3]}}" alt="">
+            </td>
             <td>{{empleado[1]}}</td>
             <td>{{empleado[2]}}</td>
-            <td>{{empleado[3]}}</td>
             <td>
-                <a href="/edit/{{empleado[0]}}">Editar</a> |
-                <a href="/destroy/{{empleado[0]}}">Eliminar</a>
+                <a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a> |
+                <a onclick="return confirm('Che posta lo borramos')" class="btn btn-danger" href="/destroy/{{empleado[0]}}">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
@@ -34,3 +43,4 @@
 </table>
 </body>
 </html>
+{% include 'footer.html' %}
